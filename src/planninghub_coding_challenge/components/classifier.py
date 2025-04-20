@@ -26,23 +26,54 @@ class Classifier:
             
         return np.array(flattened)
     
-    def match_against_columns(self, flattened_input: np.array, columns_to_check):
+    def match_against_columns(self, flattened_input: np.array, columns_to_check, is_universal: bool):
         print(f"[Classifier] Matching against categories: {columns_to_check}")
         
         input_vector = flattened_input.reshape(-1, 1)
         matrix = self.config[columns_to_check].values
-        matches = np.all(matrix == input_vector, axis=0)
         
-        print(f"[Classifier] Matches found")
+        if is_universal:
+            matches = []
+            for col in range(matrix.shape[1]):
+                category_ones = matrix[:, col] == 1
+                input_matches = input_vector[category_ones] == 1
+                matches.append(np.any(input_matches))
+            matches = np.array(matches)
+        else:
+            matches = np.all(matrix == input_vector, axis=0)
+        
+        if not np.any(matches):
+            print(f"[Classifier] No matches found")
+        else:
+            print(f"[Classifier] Matches found")
+        
         return matches
     
     def get_matches(self, flattened_input: np.array):
         print(f"[Classifier] Getting matching columns")
         
         category_columns = [col for col in self.config.columns[2:]]
-        matches = self.match_against_columns(flattened_input, category_columns)
         
-        return matches
+        universal_row = self.config[self.config['condition_type'] == 'other'][self.config['condition'] == 'universal_category']
+        universal_flags = universal_row[category_columns].values[0]
+        
+        universal_columns = [col for col, is_universal in zip(category_columns, universal_flags) if is_universal]
+        other_columns = [col for col, is_universal in zip(category_columns, universal_flags) if not is_universal]
+        
+        if universal_columns:
+            universal_matches = self.match_against_columns(flattened_input, universal_columns, is_universal=True)
+            if np.any(universal_matches):
+                print(f"[Classifier] Universal category match found")
+                return True
+        
+        if other_columns:
+            other_matches = self.match_against_columns(flattened_input, other_columns, is_universal=False)
+            has_other_matches = np.any(other_matches)
+            if not has_other_matches:
+                raise ValueError("Input does not match any categories")
+            return has_other_matches
+            
+        return False
     
     def classify(self, data: dict):
         print(f"[Classifier] Classifying data: {data}")

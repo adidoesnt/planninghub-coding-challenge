@@ -13,3 +13,4 @@ planning_constraints,aonb,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
 planning_constraints,works_affecting_tpo,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
 other,permitted_development_removed,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
 other,new_build_property,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
+other,universal_category,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0

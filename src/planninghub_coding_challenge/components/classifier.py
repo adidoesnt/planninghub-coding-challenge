@@ -5,16 +5,40 @@ import json
 import jsonschema
 
 class Classifier:
+    '''
+    Initializes the classifier.
+
+    Args:
+        config_path (str): The path to the CSV file containing the config.
+    '''
     def __init__(self, config_path: str):
         print(f"[Classifier] Initialising classifier")
         self.config = self.load_config(config_path)
         
         print(f"[Classifier] Config loaded")
 
+    '''
+    Loads the config from a CSV file.
+
+    Args:
+        config_path (str): The path to the CSV file containing the config.
+
+    Returns:
+        pd.DataFrame: A pandas DataFrame containing the data from the CSV file.
+    '''
     def load_config(self, config_path: str):
         print(f"[Classifier] Loading config from {config_path}")
         return csv.read_csv(config_path)
     
+    '''
+    Flattens the input data.
+
+    Args:
+        data (dict): The input data.
+
+    Returns:
+        np.array: A numpy array containing the flattened input data.
+    '''
     def flatten_input(self, data: dict):
         print(f"[Classifier] Flattening input")
         
@@ -29,6 +53,17 @@ class Classifier:
             
         return np.array(flattened)
     
+    '''
+    Matches the input against the columns.
+
+    Args:
+        flattened_input (np.array): The flattened input data.
+        columns_to_check (list): The columns to check.
+        is_universal (bool): Whether the columns are universal.
+
+    Returns:
+        np.array: A numpy array containing the matches.
+    '''
     def match_against_columns(self, flattened_input: np.array, columns_to_check, is_universal: bool):
         print(f"[Classifier] Matching against categories: {columns_to_check}")
         
@@ -52,6 +87,15 @@ class Classifier:
         
         return matches
     
+    '''
+    Gets the matches for the input.
+
+    Args:
+        flattened_input (np.array): The flattened input data.
+
+    Returns:
+        bool: Whether the input matches any categories.
+    '''    
     def get_matches(self, flattened_input: np.array):
         print(f"[Classifier] Getting matching columns")
         
@@ -78,6 +122,15 @@ class Classifier:
             
         return False
     
+    '''
+    Validates the input data.
+
+    Args:
+        data (dict): The input data.
+        
+    Raises:
+        jsonschema.exceptions.ValidationError: If the input data is invalid.
+    '''
     def validate_input_data(self, data: dict):
         print(f"[Classifier] Validating input data: {data}")
         
@@ -88,6 +141,15 @@ class Classifier:
         
         return True
     
+    '''
+    Classifies the input data.
+
+    Args:
+        data (dict): The input data.
+        
+    Returns:
+        bool: Whether planning permission is required.
+    '''
     def classify(self, data: dict):
         print(f"[Classifier] Classifying data: {data}")
         

@@ -3,6 +3,13 @@ import json
 import src.planninghub_coding_challenge.constants as constants
 
 class SchemaGenerator:
+    '''
+    Generates a JSON schema from a CSV file.
+
+    Args:
+        config_path (str): The path to the CSV file containing the config.
+        schema_path (str): The path to save the generated schema.
+    '''
     def __init__(self, config_path: str, schema_path: str):
         print(f"[SchemaGenerator] Initialising schema generator")
         self.config = self.load_config(config_path)
@@ -10,10 +17,26 @@ class SchemaGenerator:
         
         print(f"[SchemaGenerator] Config loaded")
 
+
+    '''
+    Loads the config from a CSV file.
+
+    Args:
+        config_path (str): The path to the CSV file containing the config.
+
+    Returns:
+        pd.DataFrame: A pandas DataFrame containing the data from the CSV file.
+    '''
     def load_config(self, config_path: str):
         print(f"[SchemaGenerator] Loading config from {config_path}")
         return csv.read_csv(config_path)
-    
+
+    '''
+    Groups the conditions by condition type.
+
+    Returns:
+        dict: A dictionary containing the grouped conditions.
+    '''
     def group_conditions(self):
         print(f"[SchemaGenerator] Grouping conditions")
         grouped_conditions = self.config.groupby('condition_type')['condition'].unique()
@@ -23,6 +46,12 @@ class SchemaGenerator:
         
         return grouped_conditions_dict
     
+    '''
+    Saves the schema to a JSON file.
+
+    Args:
+        schema (dict): The schema to save.
+    '''
     def save_schema(self, schema: dict):
         print(f"[SchemaGenerator] Saving schema to {self.schema_path}")
         
@@ -30,7 +59,13 @@ class SchemaGenerator:
             json.dump(schema, f)
             
         print(f"[SchemaGenerator] Schema saved to {self.schema_path}")
-            
+
+    '''
+    Generates the schema.
+
+    Returns:
+        dict: The generated schema.
+    '''
     def generate_schema(self):
         print(f"[SchemaGenerator] Generating schema")
         

@@ -4,13 +4,19 @@ import src.planninghub_coding_challenge.constants as constants
 from src.planninghub_coding_challenge.components.classifier import Classifier
 
 class Server:
+    '''
+    Initializes the server.
+    '''
     def __init__(self):
         print(f"[Server] Initialising server")
         
         self.app = FastAPI()
         self.classifier = Classifier(constants.CONFIG_PATH)
         self.init_routes()
-        
+
+    '''
+    Initializes the routes.
+    '''
     def init_routes(self):
         print(f"[Server] Initialising routes")
         
@@ -36,6 +42,9 @@ class Server:
                 print(f"[Server] Error: {e}")
                 return {"message": "Error", "error": str(e)}
         
+    '''
+    Runs the server.
+    '''
     def run(self):
         print(f"[Server] Running server on {constants.HOST}:{constants.PORT}")
         uvicorn.run(self.app, host=constants.HOST, port=constants.PORT)

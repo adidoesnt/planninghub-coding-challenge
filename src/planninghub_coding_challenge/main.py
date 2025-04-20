@@ -12,7 +12,9 @@ if __name__ == "__main__":
         classifier = classifier.Classifier(config_path=constants.CONFIG_PATH)
         with open(constants.SAMPLE_INPUT_PATH, "r") as f:
             data = json.load(f)
-            classifier.classify(data)
+        
+        result = classifier.classify(data)
+        print(f"[Main] Result: {result}")
     except Exception as e:
         print(f"[Main] Error: {e}")
         exit(1)

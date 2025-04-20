@@ -72,21 +72,16 @@ class Classifier:
         print(f"matrix: {matrix}")
         print(f"input_vector: {input_vector}")
         
-        if is_universal:
-            matches = []
-            for col in range(matrix.shape[1]):
-                category_ones = matrix[:, col] == 1
-                input_matches = input_vector[category_ones] == 1
-                matches.append(np.any(input_matches))
-            matches = np.array(matches)
-        else:
-            matches = []
-            for col in range(matrix.shape[1]):
-                # Get positions where input has 1s
-                input_ones = input_vector.flatten() == 1
-                # Check if category has 1s in all those positions
+        matches = []
+        for col in range(matrix.shape[1]):
+            # Get positions where input has 1s
+            input_ones = input_vector.flatten() == 1
+            # Check if category has 1s in all those positions
+            if is_universal:
+                matches.append(np.any(matrix[input_ones, col] == 1))
+            else:
                 matches.append(np.all(matrix[input_ones, col] == 1))
-            matches = np.array(matches)
+        matches = np.array(matches)
         
         if not np.any(matches):
             print("[Classifier] No matches found")

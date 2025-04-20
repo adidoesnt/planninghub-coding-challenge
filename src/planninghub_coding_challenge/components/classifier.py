@@ -10,4 +10,9 @@ class Classifier:
     def load_config(self, config_path: str):
         print(f"[Classifier] Loading config from {config_path}")
         return csv.read_csv(config_path)
-        
+
+    # TODO: Implement the classification logic
+    def classify(self, data: dict):
+        print(f"[Classifier] Classifying data: {data}")
+        return True
+    

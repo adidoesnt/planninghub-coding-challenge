@@ -1,5 +1,8 @@
 import src.planninghub_coding_challenge.components.utils.csv as csv
+import src.planninghub_coding_challenge.constants as constants
 import numpy as np
+import json
+import jsonschema
 
 class Classifier:
     def __init__(self, config_path: str):
@@ -75,9 +78,20 @@ class Classifier:
             
         return False
     
+    def validate_input_data(self, data: dict):
+        print(f"[Classifier] Validating input data: {data}")
+        
+        with open(constants.SCHEMA_PATH) as f:
+            schema = json.load(f)
+            
+        jsonschema.validate(instance=data, schema=schema)
+        
+        return True
+    
     def classify(self, data: dict):
         print(f"[Classifier] Classifying data: {data}")
         
+        self.validate_input_data(data)
         flattened_input = self.flatten_input(data)
         matches = self.get_matches(flattened_input)
         

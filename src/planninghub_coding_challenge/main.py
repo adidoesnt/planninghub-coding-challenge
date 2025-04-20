@@ -1,20 +1,16 @@
-import src.planninghub_coding_challenge.components.classifier as classifier
-import src.planninghub_coding_challenge.components.utils.schema_generator as schema_generator
+from src.planninghub_coding_challenge.components.server import Server
+from src.planninghub_coding_challenge.components.utils.schema_generator import SchemaGenerator
 import src.planninghub_coding_challenge.constants as constants
-import json
 
 if __name__ == "__main__":
     try:
         # TODO: Make schema generation part of the build process
-        schema_generator = schema_generator.SchemaGenerator(config_path=constants.CONFIG_PATH, schema_path=constants.SCHEMA_PATH)
+        schema_generator = SchemaGenerator(config_path=constants.CONFIG_PATH, schema_path=constants.SCHEMA_PATH)
         schema = schema_generator.generate_schema()
         
-        classifier = classifier.Classifier(config_path=constants.CONFIG_PATH)
-        with open(constants.SAMPLE_INPUT_PATH, "r") as f:
-            data = json.load(f)
+        server = Server()
+        server.run()
         
-        result = classifier.classify(data)
-        print(f"[Main] Result: {result}")
     except Exception as e:
         print(f"[Main] Error: {e}")
         exit(1)

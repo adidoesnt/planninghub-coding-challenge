@@ -84,6 +84,6 @@ class Classifier:
         if not np.any(matches):
             raise ValueError("Input does not match any categories")
         
-        planning_permission_required = np.any(matches)
+        planning_permission_required = bool(np.any(matches))
         return planning_permission_required
     

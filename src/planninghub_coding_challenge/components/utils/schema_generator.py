@@ -1,5 +1,6 @@
 import src.planninghub_coding_challenge.components.utils.csv as csv
 import json
+import src.planninghub_coding_challenge.constants as constants
 
 class SchemaGenerator:
     def __init__(self, config_path: str, schema_path: str):
@@ -51,3 +52,8 @@ class SchemaGenerator:
         print(f"[SchemaGenerator] Generated schema")
         
         self.save_schema(schema)
+        
+
+if __name__ == "__main__":
+    schema_generator = SchemaGenerator(constants.CONFIG_PATH, constants.SCHEMA_PATH)
+    schema_generator.generate_schema()

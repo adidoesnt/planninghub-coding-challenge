@@ -1,0 +1,9 @@
+services:
+  planninghub-coding-challenge:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" # Change this if you want to run on a different port
+    env_file:
+      - .env # Change the port in the .env file if you want to run on a different port

@@ -69,8 +69,6 @@ class Classifier:
         
         input_vector = flattened_input.reshape(-1, 1) # Reshape the input vector to a column vector
         matrix = self.config[columns_to_check].values
-        print(f"matrix: {matrix}")
-        print(f"input_vector: {input_vector}")
         
         matches = []
         for col in range(matrix.shape[1]):

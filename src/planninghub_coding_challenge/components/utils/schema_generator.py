@@ -7,7 +7,7 @@ class SchemaGenerator:
         self.config = self.load_config(config_path)
         self.schema_path = schema_path
         
-        print(f"[SchemaGenerator] Config loaded: {self.config}")
+        print(f"[SchemaGenerator] Config loaded")
 
     def load_config(self, config_path: str):
         print(f"[SchemaGenerator] Loading config from {config_path}")
@@ -48,6 +48,6 @@ class SchemaGenerator:
                 }
             }
             
-        print(f"[SchemaGenerator] Generated schema: {schema}, saving to {self.schema_path}")
+        print(f"[SchemaGenerator] Generated schema")
         
         self.save_schema(schema)

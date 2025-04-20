@@ -4,8 +4,8 @@
     "gate_fence_wall": false
   },
   "height": {
-    "up_to_1m": true,
-    "above_1m": false,
+    "up_to_1m": false,
+    "above_1m": true,
     "up_to_2m": false,
     "above_2m": false
   },

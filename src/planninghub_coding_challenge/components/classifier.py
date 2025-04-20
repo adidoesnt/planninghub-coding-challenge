@@ -69,6 +69,8 @@ class Classifier:
         
         input_vector = flattened_input.reshape(-1, 1) # Reshape the input vector to a column vector
         matrix = self.config[columns_to_check].values
+        print(f"matrix: {matrix}")
+        print(f"input_vector: {input_vector}")
         
         if is_universal:
             matches = []
@@ -78,7 +80,13 @@ class Classifier:
                 matches.append(np.any(input_matches))
             matches = np.array(matches)
         else:
-            matches = np.all(matrix == input_vector, axis=0)
+            matches = []
+            for col in range(matrix.shape[1]):
+                # Get positions where input has 1s
+                input_ones = input_vector.flatten() == 1
+                # Check if category has 1s in all those positions
+                matches.append(np.all(matrix[input_ones, col] == 1))
+            matches = np.array(matches)
         
         if not np.any(matches):
             print("[Classifier] No matches found")

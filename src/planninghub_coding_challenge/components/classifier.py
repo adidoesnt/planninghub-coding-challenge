@@ -81,9 +81,9 @@ class Classifier:
             matches = np.all(matrix == input_vector, axis=0)
         
         if not np.any(matches):
-            print(f"[Classifier] No matches found")
+            print("[Classifier] No matches found")
         else:
-            print(f"[Classifier] Matches found")
+            print(f"[Classifier] Matches found: {matches}")
         
         return matches
     
@@ -121,15 +121,16 @@ class Classifier:
         
         if other_columns:
             other_matches = self.match_against_columns(flattened_input, other_columns, is_universal=False)
-            has_other_matches = np.any(other_matches)
-            if not has_other_matches:
+            
+            # First check if we have any matches at all
+            if len(other_matches) == 0:
                 raise ValueError("Input does not match any categories")
-            # For other categories, check if any matching category requires permission
+            
+            # If we have matches, check if any of them require permission
             matching_permissions = requires_permission[len(universal_columns):][other_matches]
             return np.any(matching_permissions)
             
         return False
-    
     '''
     Validates the input data.
 
@@ -164,9 +165,6 @@ class Classifier:
         self.validate_input_data(data)
         flattened_input = self.flatten_input(data)
         matches = self.get_matches(flattened_input)
-        
-        if not np.any(matches):
-            raise ValueError("Input does not match any categories")
         
         planning_permission_required = bool(np.any(matches))
         return planning_permission_required

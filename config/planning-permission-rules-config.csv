@@ -1,0 +1,15 @@
+condition_type,condition,2U1,2U2,2U3,2U4,2U5,2U6,2U7,2U8,2U9,2A1,2A2,2A3,2A4,2A5,2A6
+location,adjacent,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0
+location,gate_fence_wall,0,0,0,0,0,0,0,0,1,0,0,0,1,1,1
+height,up_to_1m,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0
+height,above_1m,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0
+height,up_to_2m,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0
+height,above_2m,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
+planning_constraints,listed_building,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+planning_constraints,article_2_3_land,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0
+planning_constraints,article_2_4_land,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0
+planning_constraints,article_4_directive,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+planning_constraints,aonb,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0
+planning_constraints,works_affecting_tpo,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+other,permitted_development_removed,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0
+other,new_build_property,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0

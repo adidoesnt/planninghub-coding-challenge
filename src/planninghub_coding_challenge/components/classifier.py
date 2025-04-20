@@ -67,7 +67,7 @@ class Classifier:
     def match_against_columns(self, flattened_input: np.array, columns_to_check, is_universal: bool):
         print(f"[Classifier] Matching against categories: {columns_to_check}")
         
-        input_vector = flattened_input.reshape(-1, 1)
+        input_vector = flattened_input.reshape(-1, 1) # Reshape the input vector to a column vector
         matrix = self.config[columns_to_check].values
         
         if is_universal:
@@ -101,24 +101,32 @@ class Classifier:
         
         category_columns = [col for col in self.config.columns[2:]]
         
+        # Get the row that indicates if categories are universal or not
         universal_row = self.config[self.config['condition_type'] == 'other'][self.config['condition'] == 'universal_category']
         universal_flags = universal_row[category_columns].values[0]
         
+        # Use the universal flags to split the columns into universal and other columns
         universal_columns = [col for col, is_universal in zip(category_columns, universal_flags) if is_universal]
         other_columns = [col for col, is_universal in zip(category_columns, universal_flags) if not is_universal]
+        
+        # Get the planning permission requirements for each category
+        permission_row = self.config[self.config['condition_type'] == 'metadata'][self.config['condition'] == 'requires_planning_permission']
+        requires_permission = permission_row[category_columns].values[0]
         
         if universal_columns:
             universal_matches = self.match_against_columns(flattened_input, universal_columns, is_universal=True)
             if np.any(universal_matches):
                 print(f"[Classifier] Universal category match found")
-                return True
+                return True  # Universal categories always require permission
         
         if other_columns:
             other_matches = self.match_against_columns(flattened_input, other_columns, is_universal=False)
             has_other_matches = np.any(other_matches)
             if not has_other_matches:
                 raise ValueError("Input does not match any categories")
-            return has_other_matches
+            # For other categories, check if any matching category requires permission
+            matching_permissions = requires_permission[len(universal_columns):][other_matches]
+            return np.any(matching_permissions)
             
         return False
     

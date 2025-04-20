@@ -5,7 +5,7 @@ class Classifier:
         print(f"[Classifier] Initialising classifier")
         self.config = self.load_config(config_path)
         
-        print(f"[Classifier] Config loaded: {self.config}")
+        print(f"[Classifier] Config loaded")
 
     def load_config(self, config_path: str):
         print(f"[Classifier] Loading config from {config_path}")

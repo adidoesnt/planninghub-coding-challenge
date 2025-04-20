@@ -5,3 +5,4 @@ load_dotenv()
 
 CONFIG_PATH = os.getenv("CONFIG_PATH", "./config/planning-permission-rules-config.csv")
 SCHEMA_PATH = os.getenv("SCHEMA_PATH", "./config/schema.json")
+SAMPLE_INPUT_PATH = os.getenv("SAMPLE_INPUT_PATH", "./config/sample-input.json")

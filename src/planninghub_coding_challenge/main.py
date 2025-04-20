@@ -1,6 +1,7 @@
 import src.planninghub_coding_challenge.components.classifier as classifier
 import src.planninghub_coding_challenge.components.utils.schema_generator as schema_generator
 import src.planninghub_coding_challenge.constants as constants
+import json
 
 if __name__ == "__main__":
     try:
@@ -9,6 +10,9 @@ if __name__ == "__main__":
         schema = schema_generator.generate_schema()
         
         classifier = classifier.Classifier(config_path=constants.CONFIG_PATH)
+        with open(constants.SAMPLE_INPUT_PATH, "r") as f:
+            data = json.load(f)
+            classifier.classify(data)
     except Exception as e:
         print(f"[Main] Error: {e}")
         exit(1)

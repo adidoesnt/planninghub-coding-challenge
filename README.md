@@ -22,6 +22,8 @@ Here is a summary of the approach I took to solve the problem:
 
 ## Setup
 
+> **Note**: I recommend using the Docker-based approach to run this locally.
+
 ### No Docker
 
 1. Clone the repository

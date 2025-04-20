@@ -32,28 +32,35 @@ Here is a summary of the approach I took to solve the problem:
 git clone https://github.com/adidoesnt/planninghub-coding-challenge.git
 ```
 
-2. Install the dependencies
+2. Create a virtual environment
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+3. Install the dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Copy the `.env.example` file to `.env` and change the variables if needed
+4. Copy the `.env.example` file to `.env` and change the variables if needed
 
 ```bash
 cp .env.example .env
 ```
 
-4. Run the schema generator
+5. Run the schema generator
 
 ```bash
 python -m src.planninghub_coding_challenge.components.utils.schema_generator
 ```
 
-5. Run the server
+6. Run the server
 
 ```bash
-python src/planninghub-coding-challenge/main.py
+python -m src.planninghub_coding_challenge.main
 ```
 
 ### Docker
